@@ -1,0 +1,10 @@
+{
+  "name": "hand-particles",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Control a cloud of glowing particles with hand gestures from your webcam.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

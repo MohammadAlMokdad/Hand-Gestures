@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hand Particles</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✋</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <canvas id="overlay"></canvas>
+
+  <div id="left">
+    <h1 class="brand">✋ Hand Particles</h1>
+    <div class="row">
+      <div id="status" class="glass"><span class="dot"></span><span id="statusText">Ready</span></div>
+      <button id="guideToggle" class="glass pill-btn">Gestures</button>
+    </div>
+    <button id="camBtn" class="glass pill-btn" hidden>📷 Turn on camera</button>
+    <ul id="guide" class="glass">
+      <li data-g="open"><span class="ico">✋</span><span><b>Open hand</b> · push particles</span></li>
+      <li data-g="point"><span class="ico">☝️</span><span><b>Point</b> · poke a hole</span></li>
+      <li data-g="fist"><span class="ico">✊</span><span><b>Fist</b> · gather, open to explode</span></li>
+      <li data-g="pinch"><span class="ico">🤏</span><span><b>Pinch &amp; drag</b> · rotate</span></li>
+      <li data-g="two"><span class="ico">🙌</span><span><b>Two hands</b> · stretch to resize</span></li>
+      <li data-g="peace"><span class="ico">✌️</span><span><b>Hold peace</b> · next shape</span></li>
+      <li data-g="thumbsUp"><span class="ico">👍</span><span><b>Hold thumbs up</b> · next color</span></li>
+      <li data-g="rock"><span class="ico">🤘</span><span><b>Hold rock</b> · supernova</span></li>
+    </ul>
+  </div>
+
+  <aside id="panel" class="glass">
+    <header>
+      <h2>Controls</h2>
+      <button id="panelToggle" aria-label="Collapse panel">–</button>
+    </header>
+    <div class="body">
+      <h3>Shape</h3>
+      <div id="shapes" class="shapes"></div>
+      <input id="textInput" maxlength="14" value="HELLO" placeholder="Type a word…" aria-label="Text for the text shape">
+
+      <h3>Colors</h3>
+      <div id="palettes" class="swatches"></div>
+
+      <h3>Look</h3>
+      <label class="field">Particle size <output id="sizeOut">1.00</output>
+        <input id="size" type="range" min="0.4" max="2.5" step="0.05" value="1">
+      </label>
+      <label class="field">Glow <output id="glowOut">1.10</output>
+        <input id="glow" type="range" min="0" max="2.5" step="0.05" value="1.1">
+      </label>
+      <label class="field">Particles
+        <select id="count">
+          <option value="8000">8k</option>
+          <option value="16000">16k</option>
+          <option value="28000">28k</option>
+          <option value="45000">45k</option>
+        </select>
+      </label>
+      <label class="check"><input id="showCam" type="checkbox" checked> Camera preview</label>
+      <label class="check"><input id="showSkel" type="checkbox" checked> Hand skeleton</label>
+      <p class="keys">Keys: 1–7 shape · ← → cycle · C color · Space supernova · H hide UI</p>
+    </div>
+  </aside>
+
+  <div id="preview" class="off">
+    <video id="video" playsinline muted></video>
+    <canvas id="previewSkel"></canvas>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="intro">
+    <div class="card glass">
+      <h1>Hand Particles</h1>
+      <p>Push, gather and explode thousands of glowing particles with your bare hands.</p>
+      <button id="startCam" class="primary">Start camera</button>
+      <button id="startMouse" class="ghost">Use the mouse instead</button>
+      <p class="fine">Hand tracking runs in your browser. Your video never leaves this device.</p>
+      <p id="introError" class="error"></p>
+    </div>
+  </div>
+
+  <script>
+    if (location.protocol === 'file:') {
+      document.getElementById('introError').textContent =
+        'Open this page through the local server: run "npm start" in this folder, then visit http://localhost:5173';
+    }
+  </script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
